@@ -7,7 +7,6 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Please provide your name.'],
     unique: true,
     maxlength: [20, 'A user name must have less or equal than 20 characters'],
     minlength: [4, 'A user name must have more or equal than 4 characters.']
@@ -44,7 +43,12 @@ const userSchema = new mongoose.Schema({
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
-  passwordResetExpires: Date
+  passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false
+  }
 });
 
 userSchema.pre('save', async function(next) {
@@ -60,6 +64,12 @@ userSchema.pre('save', async function(next) {
 userSchema.pre('save', function(next) {
   if (!this.isModified('password') || this.isNew) return next();
   this.passwordChangedAt = Date.now() - 1000;
+  next();
+});
+
+userSchema.pre(/^find/, function(next) {
+  // this points to the current query
+  this.find({ active: { $ne: false } });
   next();
 });
 
