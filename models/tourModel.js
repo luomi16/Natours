@@ -126,6 +126,14 @@ tourSchema.virtual('durationWeeks').get(function() {
   return this.duration / 7;
 });
 
+// p155 review
+// The virtual property allows you to define a relationship between the "tour" schema and another schema called "Review". It specifies that the "Review" schema is referenced by the "tour" schema using the 'tour' field in the "Review" schema and the '_id' field in the "tour" schema.
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour',
+  localField: '_id'
+});
+
 // p104 document middleware
 // middleware make something happen between two events
 // (ex. each time a new document is saved to the db, we can run a command between the save command is issued and the actual saving)

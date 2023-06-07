@@ -36,7 +36,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 // test: 127.0.0.1:3000/api/v1/tours/647659bd32c494523009b7eb show: "status": "success","data": {"tour": null}
 exports.getTour = catchAsync(async (req, res, next) => {
   // when getting tour, populate tour using referencing guides data
-  const tour = await Tour.findById(req.params.id);
+  const tour = await Tour.findById(req.params.id).populate('reviews');
   if (!tour) {
     return next(new AppError('No Tour found with that ID', 404));
   }
