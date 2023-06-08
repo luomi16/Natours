@@ -1,7 +1,7 @@
 const Tour = require('./../models/tourModel');
-const APIFeatures = require('./../utils/apiFeatures.js');
 const catchAsync = require('./../utils/catchAsync.js');
-const AppError = require('./../utils/appError.js');
+// const AppError = require('./../utils/appError.js');
+const factory = require('./handlerFactory');
 
 // p99
 exports.aliasTopTours = (req, nes, next) => {
@@ -11,89 +11,11 @@ exports.aliasTopTours = (req, nes, next) => {
   next();
 };
 
-exports.getAllTours = catchAsync(async (req, res, next) => {
-  // execute query
-  const features = new APIFeatures(Tour.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-  // creating an instance of this API features that will then get stored into features
-  const tours = await features.query;
-
-  res.status(200).json({
-    status: 'success',
-    requestedAt: req.requestTime,
-    results: tours.length,
-    data: {
-      tours
-    }
-  });
-});
-// One error might be the id cannot be parsed (500)
-// test: 127.0.0.1:3000/api/v1/tours/647659bd32c49452300 show: "staus": "error", "message": "Cast to ObjectId failed for value \"647659bd32c49452300\" (type string) at path \"_id\" for model \"Tour\""
-// Another error might be that id cannot be parsed, but there's no tour, it will be null (200 OK)
-// test: 127.0.0.1:3000/api/v1/tours/647659bd32c494523009b7eb show: "status": "success","data": {"tour": null}
-exports.getTour = catchAsync(async (req, res, next) => {
-  // when getting tour, populate tour using referencing guides data
-  const tour = await Tour.findById(req.params.id).populate('reviews');
-  if (!tour) {
-    return next(new AppError('No Tour found with that ID', 404));
-  }
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour
-    }
-  });
-});
-
-exports.createTour = catchAsync(async (req, res, next) => {
-  const newTour = await Tour.create(req.body);
-  // Tour.create(req.body) return a promise, and so we need to await that
-  res.status(201).json({
-    status: 'success',
-    data: {
-      tour: newTour
-    }
-  });
-  // try {
-  //   // const newTour = new Tour({})
-  //   // newTour.save()
-  // } catch (err) {
-  //   res.status(400).json({
-  //     status: 'fail',
-  //     message: err
-  //   });
-  // }
-});
-
-exports.updateTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true
-  });
-  if (!tour) {
-    return next(new AppError('No Tour found with that ID', 404));
-  }
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour
-    }
-  });
-});
-
-exports.deleteTour = catchAsync(async (req, res, next) => {
-  const tour = await Tour.findByIdAndDelete(req.params.id);
-  if (!tour) {
-    return next(new AppError('No Tour found with that ID', 404));
-  }
-  res.status(204).json({
-    status: 'success',
-    data: null
-  });
-});
+exports.getAllTours = factory.getAll(Tour);
+exports.getTour = factory.getOne(Tour, { path: 'reviews' });
+exports.createTour = factory.createOne(Tour);
+exports.updateTour = factory.updateOne(Tour);
+exports.deleteTour = factory.deleteOne(Tour);
 
 // p101 aggregation pipeline
 exports.getTourStats = catchAsync(async (req, res, next) => {

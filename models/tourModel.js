@@ -119,6 +119,12 @@ const tourSchema = new mongoose.Schema(
   }
 );
 
+// P165 read performance
+// 1 ascending order, -1 descending order
+// tourSchema.index({ price: 1 });
+tourSchema.index({ price: 1, ratingsAverage: -1 });
+tourSchema.index({ slug: 1 });
+
 // p103 virtual properities: business logic, is not stored in db (can be easily got from other properties that already exist in db)
 // using real functions insteaf of arrow function because we need use 'this' keyword(pointing to th current document)
 // cannot use this virtual property here in a query, because it's technically not part of db  × find({ durationWeek：5 })
