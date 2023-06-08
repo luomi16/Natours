@@ -1,16 +1,12 @@
 const Review = require('./../models/reviewModel');
-const APIFeatures = require('./../utils/apiFeatures.js');
 const catchAsync = require('./../utils/catchAsync.js');
 const AppError = require('./../utils/appError.js');
 
 exports.getAllReviews = catchAsync(async (req, res, next) => {
-  const features = new APIFeatures(Review.find(), req.query)
-    .filter()
-    .sort()
-    .limitFields()
-    .paginate();
-  // creating an instance of this API features that will then get stored into features
-  const reviews = await features.query;
+  let filter = {};
+  if (req.params.tourId) filter = { tour: req.params.tourId };
+
+  const reviews = await Review.find(filter);
 
   res.status(200).json({
     status: 'success',
@@ -23,6 +19,13 @@ exports.getAllReviews = catchAsync(async (req, res, next) => {
 });
 
 exports.createReview = catchAsync(async (req, res, next) => {
+  // Allow nested routes
+  console.log(req.params.tourId);
+  //   console.log(req.params.userId);
+  console.log(req.user.id);
+
+  if (!req.body.tour) req.body.tour = req.params.tourId;
+  if (!req.body.user) req.body.user = req.user.id;
   const newReview = await Review.create(req.body);
   // Review.create(req.body) return a promise, and so we need to await that
   res.status(201).json({

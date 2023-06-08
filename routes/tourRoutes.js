@@ -2,11 +2,15 @@ const express = require('express');
 const tourController = require('./../controllers/tourController');
 // be equivalant with 'exports' in tourController.js
 const authController = require('./../controllers/authController');
+const reviewRouter = require('./../routes/reviewRoutes');
 
 const router = express.Router();
 
 // router.param('id', tourController.checkID);
 // = exports.checkID
+
+// reviewRouter cannot access parameter tourId, so we need to use mergeParams in reviewRoutes
+router.use('/:tourId/reviews', reviewRouter);
 
 router
   .route('/top-5-cheap')
