@@ -125,6 +125,7 @@ const tourSchema = new mongoose.Schema(
 // tourSchema.index({ price: 1 });
 tourSchema.index({ price: 1, ratingsAverage: -1 });
 tourSchema.index({ slug: 1 });
+tourSchema.index({ startLocation: '2dsphere' });
 
 // p103 virtual properities: business logic, is not stored in db (can be easily got from other properties that already exist in db)
 // using real functions insteaf of arrow function because we need use 'this' keyword(pointing to th current document)
@@ -199,12 +200,12 @@ tourSchema.pre(/^find/, function(next) {
 
 // AGGREGATION MIDDLEWARE
 // also need to exclude the secret tour from every (not just one) aggregation
-tourSchema.pre('aggregate', function(next) {
-  //   console.log(this.pipeline());
-  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
-  // add a field for pipeline using $match
-  next();
-});
+// tourSchema.pre('aggregate', function(next) {
+//   //   console.log(this.pipeline());
+//   this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+//   // add a field for pipeline using $match
+//   next();
+// });
 
 const Tour = mongoose.model('Tour', tourSchema);
 
