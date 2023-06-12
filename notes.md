@@ -44,7 +44,7 @@ Callbacks ≠ Asynchronous
 12. tell blowers what type of this file should recognize?
 
     ```javascript
-    res.writeHead(200, { "Content-type": "application/json" });
+    res.writeHead(200, { 'Content-type': 'application/json' });
     // also could be 'Content-type': 'text/html'
     ```
 
@@ -221,9 +221,7 @@ middleware stack
 #### parse JSON file
 
 ```javascript
-const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
-);
+const tours = JSON.parse(fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`));
 ```
 
 ### responding to URL parameters
@@ -231,7 +229,7 @@ const tours = JSON.parse(
 defining, reading, and response parameters in the URL
 
 ```javascript
-app.get("/api/v1/tours/:id", (req, res) => {
+app.get('/api/v1/tours/:id', (req, res) => {
   console.log(req.params);
   // convert string to number
   const id = req.params.id * 1;
@@ -239,23 +237,23 @@ app.get("/api/v1/tours/:id", (req, res) => {
   // loop through the array, and in each of the iterations, we will have access to the current element and return either true or false
   // create a array which only contains the element where this comparision here turns out to be true
   // real id === specify id and will get returned from the find method, and stored into tour
-  const tour = tours.find((el) => el.id === id);
+  const tour = tours.find(el => el.id === id);
 
   // input a valid id, return error message
   //   if (id > tours.length) {
   if (!tour) {
     return res.status(404).json({
-      status: "fail",
-      message: "Invalid ID",
+      status: 'fail',
+      message: 'Invalid ID'
     });
   }
 
   res.status(200).json({
-    status: "success",
+    status: 'success',
     // single tour (id = 5)
     data: {
-      tour,
-    },
+      tour
+    }
   });
 });
 ```
@@ -265,18 +263,18 @@ app.get("/api/v1/tours/:id", (req, res) => {
 handling patch requests to actually update data
 
 ```javascript
-app.patch("/api/v1/tours/:id", (req, res) => {
+app.patch('/api/v1/tours/:id', (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
-      status: "fail",
-      message: "Invalid ID",
+      status: 'fail',
+      message: 'Invalid ID'
     });
   }
   res.status(200).json({
-    status: "success",
+    status: 'success',
     data: {
-      tour: "<Updated tour...>",
-    },
+      tour: '<Updated tour...>'
+    }
   });
 });
 ```
@@ -286,17 +284,17 @@ handling delete requests
 use delete function to delete the data that should be deleted
 
 ```javascript
-app.delete("/api/v1/tours/:id", (req, res) => {
+app.delete('/api/v1/tours/:id', (req, res) => {
   if (req.params.id * 1 > tours.length) {
     return res.status(404).json({
-      status: "fail",
-      message: "Invalid ID",
+      status: 'fail',
+      message: 'Invalid ID'
     });
   }
   // 204 means no content
   res.status(204).json({
-    status: "success",
-    data: null,
+    status: 'success',
+    data: null
   });
 });
 ```
@@ -309,30 +307,30 @@ Create our own middleware
 const tourSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "A tour must have name"],
-    unique: true,
+    required: [true, 'A tour must have name'],
+    unique: true
   },
   rating: Number,
   price: {
     type: Number,
-    required: [true, "A tour must have price"],
-  },
+    required: [true, 'A tour must have price']
+  }
 });
 
-const Tour1 = mongoose.model("Tour1", tourSchema);
+const Tour1 = mongoose.model('Tour1', tourSchema);
 
 const testTour = new Tour1({
-  name: "The Park Camper",
-  price: 997,
+  name: 'The Park Camper',
+  price: 997
 });
 
 testTour
   .save()
-  .then((doc) => {
+  .then(doc => {
     console.log(doc);
   })
-  .catch((err) => {
-    console.log("ERROR !!:", err);
+  .catch(err => {
+    console.log('ERROR !!:', err);
   });
 ```
 
@@ -357,7 +355,7 @@ exports.createTour = (req, res) => {
   const newTour = new Tour({});
   newTour.save();
   res.status(201).json({
-    status: "success",
+    status: 'success'
   });
 };
 ```
@@ -369,15 +367,15 @@ exports.createTour = async (req, res) => {
   try {
     const newTour = await Tour.create(req.body);
     res.status(201).json({
-      status: "success",
+      status: 'success',
       data: {
-        tour: newTour,
-      },
+        tour: newTour
+      }
     });
   } catch (err) {
     res.status(400).json({
-      status: "fail",
-      message: "Invalid data sent",
+      status: 'fail',
+      message: 'Invalid data sent'
     });
   }
 };
@@ -413,7 +411,7 @@ Mongoose [models](https://mongoosejs.com/docs/models.html) provide several stati
 ```js
 const tours = await Tour.find({
   duration: 5,
-  difficulty: "easy",
+  difficulty: 'easy'
 });
 ```
 
@@ -421,10 +419,10 @@ const tours = await Tour.find({
 
 ```js
 const tours = await Tour.find()
-  .where("duration")
+  .where('duration')
   .equals(5)
-  .where("difficulty")
-  .equals("easy");
+  .where('difficulty')
+  .equals('easy');
 ```
 
 ### getAllTours (in tourController.js)
@@ -435,8 +433,8 @@ const queryObj = { ...req.query };
 // { ...req.query } this structure will basically take all the fields out of the object. This step ensures that modifying queryObj does not affect the original req.query.
 
 // ignores page, sort
-const excludedFields = ["page", "sort", "limit", "fields"];
-excludedFields.forEach((el) => delete queryObj[el]);
+const excludedFields = ['page', 'sort', 'limit', 'fields'];
+excludedFields.forEach(el => delete queryObj[el]);
 
 console.log(req.query, queryObj);
 const tours = await Tour.find(queryObj);
@@ -530,12 +528,12 @@ createdAt: {
 //1A) Filtering
 
 const queryObj = { ...req.query };
-const excludedFields = ["page", "sort", "limit", "fields"];
-excludedFields.forEach((el) => delete queryObj[el]);
+const excludedFields = ['page', 'sort', 'limit', 'fields'];
+excludedFields.forEach(el => delete queryObj[el]);
 //1B)Advanced Filtering
 
 let queryStr = JSON.stringify(queryObj);
-queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
 
 let query = Tour.find(JSON.parse(queryStr));
 // const tours = await Tour.find()
@@ -546,18 +544,18 @@ let query = Tour.find(JSON.parse(queryStr));
 
 // 2)Sorting
 if (req.query.sort) {
-  const sortBy = req.query.sort.split(",").join(" ");
+  const sortBy = req.query.sort.split(',').join(' ');
   query = query.sort(sortBy);
 } else {
-  query = query.sort("-ratingsAverage");
+  query = query.sort('-ratingsAverage');
 }
 
 // 3)fields
 if (req.query.fields) {
-  const fields = req.query.fields.split(",").join(" ");
+  const fields = req.query.fields.split(',').join(' ');
   query = query.select(fields);
 } else {
-  query = query.select("-__v");
+  query = query.select('-__v');
 }
 
 // 4)Pagination
@@ -567,7 +565,7 @@ const skip = (page - 1) * limit;
 
 if (req.query.page) {
   const numberTours = await Tour.countDocuments();
-  if (skip >= numberTours) throw new Error("This Page Doesnt Exist");
+  if (skip >= numberTours) throw new Error('This Page Doesnt Exist');
 }
 
 query = query.skip(skip).limit(limit);
@@ -582,9 +580,9 @@ const tours = await features.query;
 
 //Send Response
 res.status(200).json({
-  status: "success",
+  status: 'success',
   results: tours.length,
-  data: tours,
+  data: tours
 });
 ```
 
@@ -592,14 +590,14 @@ res.status(200).json({
 
 ```js
 exports.aliasTopTours = (req, nes, next) => {
-  req.query.limit = "5";
-  req.query.sort = "price,-ratingsAverage";
-  req.query.fields = "name,price,ratingsAverage,summary, difficulty";
+  req.query.limit = '5';
+  req.query.sort = 'price,-ratingsAverage';
+  req.query.fields = 'name,price,ratingsAverage,summary, difficulty';
   next();
 };
 // add router
 router
-  .route("/top-5-cheap")
+  .route('/top-5-cheap')
   .get(tourController.aliasTopTours, tourController.getAllTours);
 ```
 
@@ -623,7 +621,7 @@ const tours = await features.query;
 This is a query middleware, which executed before 'const tours = await features.query;' executed.
 
 ```js
-tourSchema.pre("find", function (next) {
+tourSchema.pre('find', function(next) {
   this.find({ secretTour: { $ne: true } });
   // not in db
   next();
@@ -675,7 +673,7 @@ Some env info at here
 
 ![1685561496787](E:\Github\node\notes.assets\1685561496787.png)
 
-### Staus code
+### Status code
 
 ere are some common HTTP status code ranges and their general meaning:
 
@@ -692,8 +690,6 @@ Here are some examples of commonly encountered status codes:
 - **400 Bad Request**: The request was invalid or cannot be processed by the server.
 - **404 Not Found**: The requested resource could not be found on the server.
 - **500 Internal Server Error**: An unexpected error occurred on the server.
-
-
 
 ### A better way of catching errors in all our async functions
 
@@ -721,10 +717,10 @@ module.exports = fn => {
 exports.createTour = catchAsync(async (req, res, next) => {
   const newTour = await Tour.create(req.body);
   res.status(201).json({
-    status: "success",
+    status: 'success',
     data: {
-      tour: newTour,
-    },
+      tour: newTour
+    }
   });
 });
 ```
@@ -746,3 +742,22 @@ synchronous: uncaught exceptions (errors that ocurred in our synchronous code bu
 ### JSON web token (JWT)
 
 ![1685667106721](E:\Github\node\notes.assets\1685667106721.png)
+
+### add user account function
+
+1. edit account.pug
+2. add route '/me' in viewRoutes.js
+
+```
+router.get(
+'/me',
+authController.isLoggedIn,
+authController.protect,
+viewsController.getAccount
+);
+```
+
+3. in authController.js protect
+   add `res.locals.user = currentUser;`
+4. add route in header.pug
+5.

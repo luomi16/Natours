@@ -25,4 +25,8 @@ if (loginForm)
     login(email, password);
   });
 
-if (logOutBtn) logOutBtn.addEventListener('click', logout);
+if (logOutBtn) {
+  console.log('before click');
+  logOutBtn.addEventListener('click', logout);
+  console.log('after click');
+}
