@@ -48,7 +48,7 @@ block content
 
         .user-view__form-container
           h2.heading-secondary.ma-bt-md Password change
-          form.form.form-user-settings
+          form.form.form-user-password
             .form__group
               label.form__label(for='password-current') Current password
               input#password-current.form__input(type='password', placeholder='••••••••', required, minlength='8')
@@ -59,4 +59,4 @@ block content
               label.form__label(for='password-confirm') Confirm password
               input#password-confirm.form__input(type='password', placeholder='••••••••', required, minlength='8')
             .form__group.right
-              button.btn.btn--small.btn--green Save password
+              button.btn.btn--small.btn--green.btn--save--password Save password

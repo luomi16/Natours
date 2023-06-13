@@ -2,12 +2,13 @@
 import '@babel/polyfill';
 import { displayMap } from './mapbox';
 import { login, logout } from './login';
-import { updateDate } from './updateSetting';
+import { updateSetting } from './updateSetting';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const userDateForm = document.querySelector('.form-user-data');
+const userPasswordForm = document.querySelector('.form-user-password');
 
 // VALUES
 // Jonas encountered some errors in here, but I do not, he put this in addEventListener later
@@ -35,5 +36,20 @@ if (userDateForm)
     e.preventDefault();
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    updateDate(name, email);
+    updateSetting({ name, email }, 'data');
+  });
+
+if (userPasswordForm)
+  userPasswordForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    document.querySelector('.btn--save--password').textContent = 'Updating...';
+    const passwordCurrent = document.getElementById('password-current').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('password-confirm').value;
+    await updateSetting({ passwordCurrent, password, passwordConfirm }, 'password');
+
+    document.querySelector('.btn--save--password').textContent = 'save password';
+    document.getElementById('password-current').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('password-confirm').value = '';
   });
