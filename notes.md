@@ -743,7 +743,7 @@ synchronous: uncaught exceptions (errors that ocurred in our synchronous code bu
 
 ![1685667106721](E:\Github\node\notes.assets\1685667106721.png)
 
-### add user account function
+### p192 build user account function
 
 1. edit account.pug
 2. add route '/me' in viewRoutes.js
@@ -760,4 +760,22 @@ viewsController.getAccount
 3. in authController.js protect
    add `res.locals.user = currentUser;`
 4. add route in header.pug
-5.
+5. write getAccount in viewsController.js
+
+### p193 updating user data (html form submit without javascript)
+
+1. in account.pug
+   for form
+
+```
+form.form.form-user-data(action='/submit-user-data' method='POST')
+```
+
+specify the name of input
+
+2. set route in viewRoutes.js
+   /submit-user-data updateUserData
+3. in viewsController.js
+   implement updateUserData
+
+### p193 updating user data (api)

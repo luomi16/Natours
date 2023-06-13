@@ -5,12 +5,11 @@ import { login, logout } from './login';
 
 // DOM ELEMENTS
 const mapBox = document.getElementById('map');
-const loginForm = document.querySelector('.form');
+const loginForm = document.querySelector('.form--login');
 
 // VALUES
 // Jonas encountered some errors in here, but I do not, he put this in addEventListener later
-const email = document.getElementById('email').value;
-const password = document.getElementById('password').value;
+
 const logOutBtn = document.querySelector('.nav__el--logout');
 
 // DELEGATION
@@ -22,11 +21,9 @@ if (mapBox) {
 if (loginForm)
   loginForm.addEventListener('submit', e => {
     e.preventDefault();
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
     login(email, password);
   });
 
-if (logOutBtn) {
-  console.log('before click');
-  logOutBtn.addEventListener('click', logout);
-  console.log('after click');
-}
+if (logOutBtn) logOutBtn.addEventListener('click', logout);

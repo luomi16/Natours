@@ -13,12 +13,14 @@ export const login = async (email, password) => {
       }
     });
 
+    console.log('The follow is:', res);
+
     if (res.data.status === 'success') {
-      showAlert('success', 'Logged in successfully!');
+      showAlert('success', 'Logged in successfully!!!!');
 
       window.setTimeout(() => {
         location.assign('/');
-      }, 1500);
+      }, 1000);
     }
   } catch (err) {
     showAlert('error', err.response.data.message);
@@ -31,11 +33,9 @@ export const logout = async () => {
       method: 'GET',
       url: 'http://127.0.0.1:3000/api/v1/users/logout'
     });
-    console.log('logout!');
 
     if ((res.data.status = 'success')) {
       location.reload(true);
-      // console.log('su logout');
     }
   } catch (err) {
     console.log(err.response);
