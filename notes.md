@@ -779,3 +779,7 @@ specify the name of input
    implement updateUserData
 
 ### p193 updating user data (api)
+
+account.pug
+index.js
+updateSeting.js
