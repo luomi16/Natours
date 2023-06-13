@@ -783,3 +783,14 @@ specify the name of input
 account.pug
 index.js
 updateSeting.js
+
+### photo upload
+
+multer
+
+1. npm i multer
+2. in userRoutes, require
+   set route in updateMe
+   create a middleware upload using multer
+3. configure multer upload
+   create a multer storage and filter
