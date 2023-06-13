@@ -794,3 +794,12 @@ multer
    create a middleware upload using multer
 3. configure multer upload
    create a multer storage and filter
+
+resize user photo using sharp
+upload user photo using user-friendly window
+(this label will active this input)
+
+```
+input.form_upload(type='file', accept='image/*', id='photo', name='photo')
+label(for='photo') Choose new photo
+```
