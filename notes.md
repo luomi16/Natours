@@ -803,3 +803,11 @@ upload user photo using user-friendly window
 input.form_upload(type='file', accept='image/*', id='photo', name='photo')
 label(for='photo') Choose new photo
 ```
+
+p204
+1 create a multer upload using the memory storage and filter only for images
+2 then craete th eupload tour image middleware by using upload fields, which takes in one image cover
+
+npm i sharp
+
+npm i html-to-text
