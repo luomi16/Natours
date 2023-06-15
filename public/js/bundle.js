@@ -12012,7 +12012,8 @@ var hideAlert = function hideAlert() {
 exports.hideAlert = hideAlert;
 var showAlert = function showAlert(type, msg) {
   hideAlert();
-  console.log('msg');
+  // console.log('msg');
+
   var markup = "<div class=\"alert alert--".concat(type, "\">").concat(msg, "</div>");
   document.querySelector('body').insertAdjacentHTML('afterbegin', markup);
   window.setTimeout(hideAlert, 5000);
@@ -12050,24 +12051,23 @@ var login = /*#__PURE__*/function () {
           });
         case 3:
           res = _context.sent;
-          console.log('The follow is:', res);
           if (res.data.status === 'success') {
             (0, _alerts.showAlert)('success', 'Logged in successfully!!!!');
             window.setTimeout(function () {
               location.assign('/');
             }, 1000);
           }
-          _context.next = 11;
+          _context.next = 10;
           break;
-        case 8:
-          _context.prev = 8;
+        case 7:
+          _context.prev = 7;
           _context.t0 = _context["catch"](0);
           (0, _alerts.showAlert)('error', _context.t0.response.data.message);
-        case 11:
+        case 10:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[0, 7]]);
   }));
   return function login(_x, _x2) {
     return _ref.apply(this, arguments);
@@ -12188,26 +12188,23 @@ var bookTour = /*#__PURE__*/function () {
           return (0, _axios.default)("http://127.0.0.1:3000/api/v1/bookings/checkout-session/".concat(tourId));
         case 3:
           session = _context.sent;
-          console.log(session);
-
-          // 2)Create checkout form + charge credit card
-          _context.next = 7;
+          _context.next = 6;
           return stripe.redirectToCheckout({
             sessionId: session.data.session.id
           });
-        case 7:
-          _context.next = 13;
+        case 6:
+          _context.next = 12;
           break;
-        case 9:
-          _context.prev = 9;
+        case 8:
+          _context.prev = 8;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
           (0, _alerts.showAlert)('error', _context.t0);
-        case 13:
+        case 12:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 9]]);
+    }, _callee, null, [[0, 8]]);
   }));
   return function bookTour(_x) {
     return _ref.apply(this, arguments);
@@ -12385,7 +12382,6 @@ if (userDateForm) userDateForm.addEventListener('submit', function (e) {
   form.append('name', document.getElementById('name').value);
   form.append('email', document.getElementById('email').value);
   form.append('photo', document.getElementById('photo').files[0]);
-  console.log(form);
   (0, _updateSetting.updateSetting)(form, 'data');
 });
 if (userPasswordForm) userPasswordForm.addEventListener('submit', /*#__PURE__*/function () {
