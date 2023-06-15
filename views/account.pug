@@ -4,7 +4,7 @@ mixin navItem(link, text, icon, active)
   li(class=`${active ? 'side-nav--active' : ''}`)
     a(href=`${link}`)
       svg
-        use(xlink:href='img/icons.svg#icon-${icon}')
+        use(xlink:href=`img/icons.svg#icon-${icon}`)
       | #{text}
 
 block content 
@@ -12,7 +12,7 @@ block content
     .user-view
       nav.user-view__menu
         ul.side-nav
-          +navItem('#', 'Settings', 'setting', true)
+          +navItem('#', 'Settings', 'settings', true)
           +navItem('/my-tours', 'My bookings', 'briefcase')
           +navItem('#', 'My reviews', 'star')
           +navItem('#', 'Billing', 'credit-card')
@@ -29,7 +29,7 @@ block content
       .user-view__content
         .user-view__form-container
           h2.heading-secondary.ma-bt-md Your account settings
-          WTHOUT API/
+          //- WITHOUT API
           //- form.form.form-user-data(action='/submit-user-data' method='POST' enctype='multipart/form-data')
           form.form.form-user-data
             .form__group
