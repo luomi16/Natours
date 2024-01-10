@@ -1,26 +1,20 @@
-# Travel Website 🌍✈️
+## Travel Website 🌍✈️
 
-Welcome to the Travel Website repository! This is a travel website that offers various features and functionality to enhance users' travel experiences.
+A Travel Website is a feature-rich online platform offering interactive maps for tour locations, user reviews, secure tour booking with Stripe integration, email notifications, JWT cookies authorization, and it's built with technologies like Express, Node.js, MongoDB, and Stripe, deployable on Heroku.
 
-## Website Overview 📚🌟
+## Getting Started 🏁🔍
 
-The Travel Website showcases the following advantages and technical skills:
+To run the Travel Website locally on your machine, follow these steps:
 
-### Map-based Tour Display 🗺️📍
+1. Clone the repository: `git clone [repository URL]`
 
-- The website leverages an interactive map to display the positions of various tours. Users can explore different destinations and easily locate available tours.
+2. Install the required dependencies by running the following command: [mention the command, such as `npm install`]
 
-### User Reviews ✍️🌟
+3. Set up the environment variables mentioned above, either by creating a `.env` file or using your preferred method.
 
-- Registered users can share their travel experiences by writing reviews and rating different tours. This feature allows others to benefit from real-life insights and recommendations.
+4. Run the application using the command: [mention the command, such as `npm start`]
 
-### Tour Booking with Stripe Integration 💳💼
-
-- The website enables users to book tours seamlessly by integrating Stripe payment processing. Users can securely make payments and receive booking confirmations.
-
-### Email Notifications and JWT Cookies Authorization 📧🔒
-
-- When users sign up on the website, they receive email notifications for successful registrations. Additionally, JWT cookies are utilized for secure authorization and authentication.
+5. Access the website locally by visiting [http://localhost:3000] in your web browser.
 
 ## Screenshots 📸🖼️
 
@@ -84,41 +78,5 @@ The website is built using the following technologies and frameworks:
 - **Database**: MongoDB
 - **Frontend**: HTML, CSS, JavaScript, Pug
 - **Payment Integration**: Stripe
-
-## Getting Started 🏁🔍
-
-To run the Travel Website locally on your machine, follow these steps:
-
-1. Clone the repository: `git clone [repository URL]`
-
-2. Install the required dependencies by running the following command: [mention the command, such as `npm install`]
-
-3. Set up the environment variables mentioned above, either by creating a `.env` file or using your preferred method.
-
-4. Run the application using the command: [mention the command, such as `npm start`]
-
-5. Access the website locally by visiting [http://localhost:3000] in your web browser.
-
-## Contributing 🤝🌟
-
-If you would like to contribute to the Travel Website, you are welcome to submit pull requests. Please follow these guidelines:
-
-- Fork the repository and create a new branch for your contribution.
-
-- Make your changes and test them thoroughly.
-
-- Submit a pull request describing the changes you have made, along with any relevant information or context.
-
-- Ensure your code follows best practices and is well-documented.
-
-## Issues and Bug Reports 🐛📝
-
-If you encounter any issues or bugs while using the Travel Website, please submit an issue on the GitHub repository. Provide detailed information about the problem, including steps to reproduce it, if possible.
-
-## Contact 📞📧
-
-If you have any questions, suggestions, or feedback, feel free to contact the project maintainer:
-
-- [Mi Luo](luomi2001@gmail.com)
 
 Thank you for visiting and using the Travel Website! We hope it enhances your travel experiences and inspires new adventures. ✈️🌟🗺️
