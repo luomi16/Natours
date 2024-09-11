@@ -68,7 +68,7 @@ Make sure to set up these environment variables correctly before running the app
 
 ## Deployment 🚀
 
-The Travel Website is deployed and accessible at [https://natours-miluo-a6134ef4d95c.herokuapp.com/](https://natours-miluo-a6134ef4d95c.herokuapp.com/). It is hosted on Heroku, a cloud platform that enables easy deployment and scaling of web applications. You can use test account to get guest functions(Email:aarav@example.com, Password:test1234)
+The Travel Website is deployed and accessible at [https://natours-miluo-a6134ef4d95c.herokuapp.com/](https://natours-miluo-a6134ef4d95c.herokuapp.com/)(Sorry, no longer accessible). It is hosted on Heroku, a cloud platform that enables easy deployment and scaling of web applications. You can use test account to get guest functions(Email:aarav@example.com, Password:test1234)
 
 ## Technologies Used 💻🔧
 
